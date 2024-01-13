@@ -68,7 +68,12 @@ class LoginViewController: UIViewController {
             strongSelf.viewModel.login { result in
                 switch result {
                 case .success(let user):
-                    print("success")
+                    let userAccountsViewController = UserAccountsViewController()
+                                        userAccountsViewController.user = user
+                                        let navigationController = UINavigationController(rootViewController: userAccountsViewController)
+                                        DispatchQueue.main.async {
+                                            strongSelf.view.window?.rootViewController = navigationController
+                                        }
                 case .failure(let error):
                     DispatchQueue.main.async {
                         strongSelf.presentError(title: error.errorTitle, message: error.errorMessage)

@@ -27,6 +27,9 @@
 		F65EEB422B535157009C4AC9 /* Extension+UIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EEB412B535157009C4AC9 /* Extension+UIControl.swift */; };
 		F65EEB452B5351C3009C4AC9 /* LoginError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EEB442B5351C3009C4AC9 /* LoginError.swift */; };
 		F65EEB472B53526C009C4AC9 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EEB462B53526C009C4AC9 /* UIViewController.swift */; };
+		F65EEB492B535417009C4AC9 /* UserAccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EEB482B535417009C4AC9 /* UserAccountsViewController.swift */; };
+		F65EEB4B2B535452009C4AC9 /* UserAccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EEB4A2B535452009C4AC9 /* UserAccountsViewModel.swift */; };
+		F65EEB4E2B5356C4009C4AC9 /* UserAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EEB4D2B5356C4009C4AC9 /* UserAccountTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +71,9 @@
 		F65EEB412B535157009C4AC9 /* Extension+UIControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIControl.swift"; sourceTree = "<group>"; };
 		F65EEB442B5351C3009C4AC9 /* LoginError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginError.swift; sourceTree = "<group>"; };
 		F65EEB462B53526C009C4AC9 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		F65EEB482B535417009C4AC9 /* UserAccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountsViewController.swift; sourceTree = "<group>"; };
+		F65EEB4A2B535452009C4AC9 /* UserAccountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountsViewModel.swift; sourceTree = "<group>"; };
+		F65EEB4D2B5356C4009C4AC9 /* UserAccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +118,7 @@
 		B2CA46CA279350880041B3A5 /* MoneyBox */ = {
 			isa = PBXGroup;
 			children = (
+				F65EEB4C2B53569A009C4AC9 /* Views */,
 				F65EEB432B5351B7009C4AC9 /* Models */,
 				F65EEB3A2B534FFB009C4AC9 /* Components */,
 				F65EEB352B534EC6009C4AC9 /* Extensions */,
@@ -187,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				F65EEB2F2B534DE4009C4AC9 /* LoginViewController.swift */,
+				F65EEB482B535417009C4AC9 /* UserAccountsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -195,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				F65EEB322B534E3C009C4AC9 /* LoginViewModel.swift */,
+				F65EEB4A2B535452009C4AC9 /* UserAccountsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -226,6 +235,14 @@
 				F65EEB442B5351C3009C4AC9 /* LoginError.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		F65EEB4C2B53569A009C4AC9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F65EEB4D2B5356C4009C4AC9 /* UserAccountTableViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -339,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F65EEB4E2B5356C4009C4AC9 /* UserAccountTableViewCell.swift in Sources */,
 				F65EEB3E2B535039009C4AC9 /* Extension+UIFont.swift in Sources */,
 				F65EEB302B534DE4009C4AC9 /* LoginViewController.swift in Sources */,
 				F65EEB452B5351C3009C4AC9 /* LoginError.swift in Sources */,
@@ -346,9 +364,11 @@
 				F65EEB3C2B53501B009C4AC9 /* RoundedButton.swift in Sources */,
 				F65EEB392B534F3D009C4AC9 /* Extension+TextField.swift in Sources */,
 				F65EEB372B534EE3009C4AC9 /* Extension+UIColour.swift in Sources */,
+				F65EEB4B2B535452009C4AC9 /* UserAccountsViewModel.swift in Sources */,
 				F65EEB402B5350CF009C4AC9 /* Extension+UIButton.swift in Sources */,
 				F65EEB422B535157009C4AC9 /* Extension+UIControl.swift in Sources */,
 				B2CA46CC279350880041B3A5 /* AppDelegate.swift in Sources */,
+				F65EEB492B535417009C4AC9 /* UserAccountsViewController.swift in Sources */,
 				F65EEB332B534E3C009C4AC9 /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
