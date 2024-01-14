@@ -132,5 +132,10 @@ extension UserAccountsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            let account = viewModel.accounts[indexPath.row]
+            let userAccountDetailViewController = UserAccountDetailViewController()
+            userAccountDetailViewController.productResponse = account
+            navigationController?.pushViewController(userAccountDetailViewController, animated: true)
+        }
 }
