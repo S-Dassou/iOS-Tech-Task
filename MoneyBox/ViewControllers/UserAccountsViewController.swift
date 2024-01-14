@@ -15,8 +15,6 @@ class UserAccountsViewController: UIViewController {
     
     private let viewModel = UserAccountsViewModel()
     
-//    //think of naming
-//    var accounts: [ProductResponse] = []
     var user: LoginResponse.User?
     
     lazy var greetingMessageLabel: UILabel = {
@@ -53,13 +51,36 @@ class UserAccountsViewController: UIViewController {
         tableView.register(UserAccountTableViewCell.self, forCellReuseIdentifier: UserAccountTableViewCell.identifier)
         return tableView
     }()
-
+    
+    lazy var activityStateIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.startAnimating()
+        return activityIndicator
+    }()
+    
+    lazy var emptyStateTitle: UILabel = {
+        let title = UILabel()
+         title.text = "Loading"
+         title.textColor = UIColor.black
+         return title
+    }()
+    
+    lazy var emptyStateMessage: UILabel = {
+        let message = UILabel()
+         message.text = "Fetching your money boxes"
+         message.textColor = UIColor.black
+         message.translatesAutoresizingMaskIntoConstraints = false
+         return message
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
         setup()
         getProducts()
     }
+    
     
     func setup() {
         //remove black strip at top
@@ -69,12 +90,16 @@ class UserAccountsViewController: UIViewController {
     }
     
     func layout() {
-        [greetingMessageLabel, totalPlanValue, tableView].forEach { uiView in
+        [activityStateIndicator, emptyStateMessage ,greetingMessageLabel, totalPlanValue, tableView].forEach { uiView in
             view.addSubview(uiView)
         }
         
         NSLayoutConstraint.activate([
             
+            activityStateIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityStateIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            emptyStateMessage.topAnchor.constraint(equalTo: activityStateIndicator.bottomAnchor, constant: 10),
+            emptyStateMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             greetingMessageLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
             greetingMessageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             
@@ -88,8 +113,12 @@ class UserAccountsViewController: UIViewController {
         ])
     }
     func getProducts() {
+        tableView.isHidden = true
         viewModel.getProducts {
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.isHidden = false
+                self.tableView.reloadData()
+            }
         }
         
 //        let dataProvider = DataProvider()
@@ -139,3 +168,5 @@ extension UserAccountsViewController: UITableViewDelegate {
             navigationController?.pushViewController(userAccountDetailViewController, animated: true)
         }
 }
+
+

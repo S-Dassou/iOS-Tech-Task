@@ -32,6 +32,8 @@
 		F65EEB4E2B5356C4009C4AC9 /* UserAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EEB4D2B5356C4009C4AC9 /* UserAccountTableViewCell.swift */; };
 		F65EEB502B53590C009C4AC9 /* UserAccountDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EEB4F2B53590C009C4AC9 /* UserAccountDetailViewController.swift */; };
 		F65EEB522B53594B009C4AC9 /* UserAccountsDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EEB512B53594B009C4AC9 /* UserAccountsDetailViewModel.swift */; };
+		F65EEB542B53E0FE009C4AC9 /* EmptyStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EEB532B53E0FE009C4AC9 /* EmptyStateManager.swift */; };
+		F65EEB562B53E1C5009C4AC9 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EEB552B53E1C5009C4AC9 /* EmptyStateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +80,8 @@
 		F65EEB4D2B5356C4009C4AC9 /* UserAccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountTableViewCell.swift; sourceTree = "<group>"; };
 		F65EEB4F2B53590C009C4AC9 /* UserAccountDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountDetailViewController.swift; sourceTree = "<group>"; };
 		F65EEB512B53594B009C4AC9 /* UserAccountsDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountsDetailViewModel.swift; sourceTree = "<group>"; };
+		F65EEB532B53E0FE009C4AC9 /* EmptyStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateManager.swift; sourceTree = "<group>"; };
+		F65EEB552B53E1C5009C4AC9 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +138,7 @@
 				B2CA46D42793508A0041B3A5 /* Assets.xcassets */,
 				B2CA46D62793508A0041B3A5 /* LaunchScreen.storyboard */,
 				B2CA46D92793508A0041B3A5 /* Info.plist */,
+				F65EEB532B53E0FE009C4AC9 /* EmptyStateManager.swift */,
 			);
 			path = MoneyBox;
 			sourceTree = "<group>";
@@ -247,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				F65EEB4D2B5356C4009C4AC9 /* UserAccountTableViewCell.swift */,
+				F65EEB552B53E1C5009C4AC9 /* EmptyStateView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -362,6 +368,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F65EEB562B53E1C5009C4AC9 /* EmptyStateView.swift in Sources */,
 				F65EEB4E2B5356C4009C4AC9 /* UserAccountTableViewCell.swift in Sources */,
 				F65EEB502B53590C009C4AC9 /* UserAccountDetailViewController.swift in Sources */,
 				F65EEB3E2B535039009C4AC9 /* Extension+UIFont.swift in Sources */,
@@ -374,6 +381,7 @@
 				F65EEB4B2B535452009C4AC9 /* UserAccountsViewModel.swift in Sources */,
 				F65EEB402B5350CF009C4AC9 /* Extension+UIButton.swift in Sources */,
 				F65EEB422B535157009C4AC9 /* Extension+UIControl.swift in Sources */,
+				F65EEB542B53E0FE009C4AC9 /* EmptyStateManager.swift in Sources */,
 				B2CA46CC279350880041B3A5 /* AppDelegate.swift in Sources */,
 				F65EEB492B535417009C4AC9 /* UserAccountsViewController.swift in Sources */,
 				F65EEB522B53594B009C4AC9 /* UserAccountsDetailViewModel.swift in Sources */,
