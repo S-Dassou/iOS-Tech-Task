@@ -11,11 +11,10 @@ import Combine
 
 class LoginViewController: UIViewController {
     
-    private var viewModel = LoginViewModel()
+    private let viewModel: LoginViewModel
     
     var cancellables = Set<AnyCancellable>()
     
-    // Design Login
     lazy fileprivate var emailAddressTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -68,12 +67,9 @@ class LoginViewController: UIViewController {
             strongSelf.viewModel.login { result in
                 switch result {
                 case .success(let user):
-                    let userAccountsViewController = UserAccountsViewController()
-                                        userAccountsViewController.user = user
-                                        let navigationController = UINavigationController(rootViewController: userAccountsViewController)
-                                        DispatchQueue.main.async {
-                                            strongSelf.view.window?.rootViewController = navigationController
-                                        }
+                    DispatchQueue.main.async {
+                        strongSelf.viewModel.appCoordinator.proceed(to: .userAccounts, data: user)
+                    }
                 case .failure(let error):
                     DispatchQueue.main.async {
                         strongSelf.presentError(title: error.errorTitle, message: error.errorMessage)
@@ -85,16 +81,29 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    init(viewModel: LoginViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("Fatal error")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
+        setup()
+    }
+    private func setup() {
+        view.backgroundColor = UIColor.white
     }
 }
 
 //MARK: - layout
 extension LoginViewController {
     
-    func layout() {
+    fileprivate func layout() {
         [logInButton, moneyBoxLogoImageView, emailAddressTextField, passwordTextField].forEach { uiView in
             view.addSubview(uiView)
         }

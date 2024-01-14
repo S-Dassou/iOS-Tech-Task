@@ -11,19 +11,16 @@ import Networking
 import Combine
 
 class UserAccountsViewController: UIViewController {
-    //container view to hold "User Accounts" title, greeting message, total plan value
     
-    private let viewModel = UserAccountsViewModel()
+    private let viewModel: UserAccountsViewModel
     
-    var user: LoginResponse.User?
-    
-    lazy var greetingMessageLabel: UILabel = {
+    lazy fileprivate var greetingMessageLabel: UILabel = {
        let greetingMessage = UILabel()
         greetingMessage.translatesAutoresizingMaskIntoConstraints = false
         greetingMessage.text = "User Accounts"
         greetingMessage.font = UIFont.style(.body)
         greetingMessage.textColor = UIColor.greyColor
-        if let user = user {
+        if let user = viewModel.user {
             greetingMessage.text = "Hello \(user.firstName ?? "sir/madam") \(user.lastName ?? "")"
         }
         return greetingMessage
@@ -31,7 +28,7 @@ class UserAccountsViewController: UIViewController {
     
     private var cancellables = Set<AnyCancellable>()
     
-    lazy var totalPlanValue: UILabel = {
+    lazy fileprivate var totalPlanValue: UILabel = {
        let totalPlanValue = UILabel()
         totalPlanValue.translatesAutoresizingMaskIntoConstraints = false
         totalPlanValue.font = UIFont.style(.body)
@@ -43,7 +40,7 @@ class UserAccountsViewController: UIViewController {
         return totalPlanValue
     }()
     
-    lazy var tableView: UITableView = {
+    lazy fileprivate var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
@@ -52,21 +49,21 @@ class UserAccountsViewController: UIViewController {
         return tableView
     }()
     
-    lazy var activityStateIndicator: UIActivityIndicatorView = {
+    lazy fileprivate var activityStateIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.startAnimating()
         return activityIndicator
     }()
     
-    lazy var emptyStateTitle: UILabel = {
+    lazy fileprivate var emptyStateTitle: UILabel = {
         let title = UILabel()
          title.text = "Loading"
          title.textColor = UIColor.black
          return title
     }()
     
-    lazy var emptyStateMessage: UILabel = {
+    lazy fileprivate var emptyStateMessage: UILabel = {
         let message = UILabel()
          message.text = "Fetching your money boxes"
          message.textColor = UIColor.black
@@ -74,22 +71,73 @@ class UserAccountsViewController: UIViewController {
          return message
     }()
     
+    init(viewModel: UserAccountsViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("Fatal error")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
         setup()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         getProducts()
     }
     
     
-    func setup() {
-        //remove black strip at top
+    private func setup() {
         view.backgroundColor = UIColor.white
         title = "User Accounts"
         
     }
     
-    func layout() {
+    private func getProducts() {
+        tableView.isHidden = true
+        viewModel.getProducts {
+            DispatchQueue.main.async {
+                self.tableView.isHidden = false
+                self.tableView.reloadData()
+            }
+        }
+    }
+}
+
+//MARK: - table view data source
+extension UserAccountsViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: UserAccountTableViewCell.identifier, for: indexPath) as! UserAccountTableViewCell
+        let account = viewModel.accounts[indexPath.row]
+        cell.configure(account: account)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.accounts.count
+    }
+}
+
+//MARK: - table view delegate
+extension UserAccountsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let account = viewModel.accounts[indexPath.row]
+        viewModel.appCoordinator?.proceed(to: .userAccountDetail, data: account)
+        }
+}
+
+//MARK: - layout
+extension UserAccountsViewController {
+    fileprivate func layout() {
         [activityStateIndicator, emptyStateMessage ,greetingMessageLabel, totalPlanValue, tableView].forEach { uiView in
             view.addSubview(uiView)
         }
@@ -112,61 +160,5 @@ class UserAccountsViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
     }
-    func getProducts() {
-        tableView.isHidden = true
-        viewModel.getProducts {
-            DispatchQueue.main.async {
-                self.tableView.isHidden = false
-                self.tableView.reloadData()
-            }
-        }
-        
-//        let dataProvider = DataProvider()
-//        dataProvider.fetchProducts { [weak self] result in
-//            guard let strongSelf = self else { return }
-//            switch result {
-//            case .success(let success):
-//                let productResponses = success.productResponses
-//                //changed response type to product response - returns 3 values
-//                strongSelf.accounts = success.productResponses ?? []
-////                DispatchQueue.main.async {
-////                    strongSelf.totalPlanValue.text = "Total Plan Value: £\(success.totalPlanValue ?? 0.0)"
-////                    strongSelf.totalPlanValue.font = UIFont.style(.body)
-////                    strongSelf.totalPlanValue.textColor = UIColor.greyColor
-////                    strongSelf.tableView.reloadData()
-////                }
-//            case .failure(let failure):
-//                //create an alert
-//                break
-//            }
-//        }
-    }
 }
-
-extension UserAccountsViewController: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: UserAccountTableViewCell.identifier, for: indexPath) as! UserAccountTableViewCell
-        let account = viewModel.accounts[indexPath.row]
-        cell.configure(account: account)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.accounts.count
-    }
-}
-
-extension UserAccountsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            let account = viewModel.accounts[indexPath.row]
-            let userAccountDetailViewController = UserAccountDetailViewController()
-            userAccountDetailViewController.productResponse = account
-            navigationController?.pushViewController(userAccountDetailViewController, animated: true)
-        }
-}
-
 

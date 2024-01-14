@@ -11,39 +11,43 @@ import Combine
 
 class UserAccountDetailViewController: UIViewController {
 
-    var productResponse: ProductResponse!
-    let viewModel = UserAccountsDetailViewModel()
+    private let viewModel: UserAccountsDetailViewModel
     
     lazy fileprivate var accountTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = productResponse.product?.friendlyName
+        label.text = viewModel.productResponse.product?.friendlyName
+        label.font = UIFont.style(.category)
+        label.textColor = UIColor.greyColor
         return label
     }()
     
     lazy fileprivate var planValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.style(.formLabel)
+        label.textColor = UIColor.greyColor
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.currencySymbol = ""
-        let formattedTotalValue = formatter.string(from: (productResponse.planValue ?? 0.0) as NSNumber)
+        let formattedTotalValue = formatter.string(from: (viewModel.productResponse.planValue ?? 0.0) as NSNumber)
         
         label.text = "Plan Value: £\(formattedTotalValue ?? "0.00")"
         return label
     }()
     
-    lazy var moneyBoxLabel: UILabel = {
+    lazy fileprivate var moneyBoxLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        
+        label.font = UIFont.style(.formLabel)
+        label.textColor = UIColor.greyColor
         viewModel.moneyBoxValue
                 .assign(to: \.text, on: label)
                 .store(in: &cancellables)
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.currencySymbol = ""
-        let formattedMoneyBoxLabel = formatter.string(from: (productResponse.moneybox ?? 0.0) as NSNumber)
+        let formattedMoneyBoxLabel = formatter.string(from: (viewModel.productResponse.moneybox ?? 0.0) as NSNumber)
         
         label.text = "MoneyBox: £\(formattedMoneyBoxLabel ?? "0.0")"
         return label
@@ -56,7 +60,7 @@ class UserAccountDetailViewController: UIViewController {
         button.backgroundColor = UIColor(named: "AccentColor")
         button.publishTap().sink { [weak self] in
             guard let strongSelf = self else { return }
-            guard let productid = strongSelf.productResponse.id else {
+            guard let productid = strongSelf.viewModel.productResponse.id else {
                 return
             }
             strongSelf.viewModel.addMoney(productid: productid)
@@ -67,6 +71,15 @@ class UserAccountDetailViewController: UIViewController {
     
     private var cancellables = Set<AnyCancellable>()
     
+    init(viewModel: UserAccountsDetailViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("Fatal error")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
@@ -76,12 +89,6 @@ class UserAccountDetailViewController: UIViewController {
     private func setup() {
         title = "Individual Account"
         view.backgroundColor = UIColor.white
-        accountTitleLabel.font = UIFont.style(.category)
-        accountTitleLabel.textColor = UIColor.greyColor
-        planValueLabel.font = UIFont.style(.formLabel)
-        planValueLabel.textColor = UIColor.greyColor
-        moneyBoxLabel.font = UIFont.style(.formLabel)
-        moneyBoxLabel.textColor = UIColor.greyColor
     }
     
 }

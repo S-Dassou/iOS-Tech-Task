@@ -13,6 +13,11 @@ import Combine
 class UserAccountsDetailViewModel {
     
     let moneyBoxValue = CurrentValueSubject<String?, Never>("Total Plan Value: £...")
+    let productResponse: ProductResponse
+    
+    init(productResponse: ProductResponse) {
+        self.productResponse = productResponse
+    }
     
     func addMoney(productid: Int) {
         let oneOffPaymentRequest = OneOffPaymentRequest(amount: 10, investorProductID: productid)
@@ -38,4 +43,3 @@ class UserAccountsDetailViewModel {
     }
     
 }
-

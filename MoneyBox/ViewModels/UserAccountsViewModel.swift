@@ -13,9 +13,13 @@ import Combine
 class UserAccountsViewModel {
     
     let totalPlanValue = CurrentValueSubject<String?, Never>("Total Plan Value: £...")
-    
     var accounts: [ProductResponse] = []
     var user: LoginResponse.User?
+    var appCoordinator: AppCoordinator?
+    
+    init(loginResponse: LoginResponse.User) {
+        self.user = loginResponse
+    }
     
     typealias GetProductsCompletion = (Result<ProductResponse, Error>) -> Void
     
@@ -35,3 +39,4 @@ class UserAccountsViewModel {
         }
     }
 }
+

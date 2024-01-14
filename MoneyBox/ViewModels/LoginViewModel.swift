@@ -14,8 +14,13 @@ class LoginViewModel {
     
     let email = CurrentValueSubject<String, Never>("")
     let password = CurrentValueSubject<String, Never>("")
+    var appCoordinator: AppCoordinator
     
     typealias LoginCompletion = (Result<LoginResponse.User, LoginError>) -> Void
+    
+    init(appCoordinator: AppCoordinator) {
+        self.appCoordinator = appCoordinator
+    }
     
     func login(completion: @escaping LoginCompletion) {
         
