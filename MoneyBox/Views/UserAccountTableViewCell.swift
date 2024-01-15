@@ -8,6 +8,7 @@
 import UIKit
 import Networking
 
+/// The UserAccountTableViewCell is responsible for displaying the user account information in the UserAccountViewController.
 class UserAccountTableViewCell: UITableViewCell {
     
     static let identifier = "UserAccountTableViewCell"
@@ -42,12 +43,7 @@ class UserAccountTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
-//    override func didMoveToSuperview() {
-//        super.didMoveToSuperview()
-//        layout()
-//    }
-    
+
     func layout() {
         [accountTitleLabel, planValueLabel, moneyBoxLabel].forEach { uiView in
             addSubview(uiView)
@@ -62,8 +58,7 @@ class UserAccountTableViewCell: UITableViewCell {
             moneyBoxLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5)
         ])
     }
-    //MARK: Q
-    //SHAF: what if i wanted to pass 2 paramters here? - account and product response
+
     func configure(account: ProductResponse) {
        
         let formatter = NumberFormatter()

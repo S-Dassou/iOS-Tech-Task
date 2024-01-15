@@ -135,7 +135,7 @@ extension UserAccountsViewController: UITableViewDelegate {
         }
 }
 
-//MARK: - layout
+//MARK: - Layout
 extension UserAccountsViewController {
     fileprivate func layout() {
         [activityStateIndicator, emptyStateMessage ,greetingMessageLabel, totalPlanValue, tableView].forEach { uiView in

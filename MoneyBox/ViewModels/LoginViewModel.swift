@@ -10,6 +10,7 @@ import UIKit
 import Networking
 import Combine
 
+///Class responsible for handling login attempts by the user
 class LoginViewModel {
     
     let email = CurrentValueSubject<String, Never>("")
@@ -21,7 +22,11 @@ class LoginViewModel {
     init(appCoordinator: AppCoordinator) {
         self.appCoordinator = appCoordinator
     }
-    
+    /**
+     Method that handles login requests, validates the email and password input, and provides a bearer token from the login response.
+        - Parameters:
+            - completion: A closure that is called with the result of the login attempt.
+     */
     func login(completion: @escaping LoginCompletion) {
         
         guard !email.value.isEmpty,

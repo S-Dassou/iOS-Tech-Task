@@ -11,6 +11,9 @@ import Combine
 
 extension UIButton {
     
+    /**
+     Method that emits a signal when the button is tapped
+     */
     func publishTap() -> AnyPublisher<Void, Never> {
         self.publisher(for: .touchUpInside)
             .map({ _ in
@@ -18,5 +21,4 @@ extension UIButton {
             })
             .eraseToAnyPublisher()
     }
-    
 }

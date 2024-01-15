@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+///extension on UIViewController to allow us to call a customised error message on any view controller
 extension UIViewController {
     
     func presentError(title: String, message: String) {

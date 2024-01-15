@@ -10,6 +10,7 @@ import UIKit
 import Networking
 import Combine
 
+/// Class responsible for handling functionality to add fixed amount of money to a user's moneybox
 class UserAccountsDetailViewModel {
     
     let moneyBoxValue = CurrentValueSubject<String?, Never>("Total Plan Value: £...")
@@ -19,6 +20,11 @@ class UserAccountsDetailViewModel {
         self.productResponse = productResponse
     }
     
+    /**
+     Method that initiates a request to add £10 to the moneybox. Creates a payment request and uses DataProvider to process it.
+        - Parameters:
+            - productId: Int representing unique ID of the product to add the £10 to
+     */
     func addMoney(productid: Int) {
         let oneOffPaymentRequest = OneOffPaymentRequest(amount: 10, investorProductID: productid)
         let dataProvider = DataProvider()

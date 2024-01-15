@@ -100,7 +100,7 @@ class LoginViewController: UIViewController {
     }
 }
 
-//MARK: - layout
+//MARK: - Layout
 extension LoginViewController {
     
     fileprivate func layout() {

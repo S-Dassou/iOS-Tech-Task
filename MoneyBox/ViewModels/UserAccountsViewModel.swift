@@ -10,6 +10,7 @@ import UIKit
 import Networking
 import Combine
 
+/// Class responsible for fetching products from the data provider. Products are displayed in UserAccountsViewController
 class UserAccountsViewModel {
     
     let totalPlanValue = CurrentValueSubject<String?, Never>("Total Plan Value: £...")
@@ -21,8 +22,11 @@ class UserAccountsViewModel {
         self.user = loginResponse
     }
     
-    typealias GetProductsCompletion = (Result<ProductResponse, Error>) -> Void
+   // typealias GetProductsCompletion = (Result<ProductResponse, Error>) -> Void
     
+    /**
+     Method that retrieves a list of products to be displayed in the table view on UserAccountsViewController. It uses an instance of DataProvider and the fetchProducts method within DataProvider to update accounts with the fetched products.
+     */
     func getProducts(completion: @escaping () -> Void) {
         let dataProvider = DataProvider()
         dataProvider.fetchProducts { [weak self] result in

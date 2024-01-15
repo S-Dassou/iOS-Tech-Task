@@ -8,6 +8,9 @@
 import Foundation
 import UIKit
 
+/**
+ Enum representing different types of potential errors during login process. Provides an error title and error message which are returned in two cases; whether error is related to network issue or user input issue
+ */
 enum LoginError: Error {
     case userInput, api
     var errorTitle: String {

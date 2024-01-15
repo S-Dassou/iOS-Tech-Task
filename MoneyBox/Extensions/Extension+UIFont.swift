@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+/// Extension on UIFont that utilises IBMPlexSans-Reuglar - the closest (free) font I could find to MoneyBox's current font, ModernEra
 extension UIFont {
     
     convenience init(type: FontType, size: FontSize) {
