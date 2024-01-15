@@ -22,12 +22,14 @@ class LoginViewController: UIViewController {
         textField.layer.borderColor = UIColor.accentColor.cgColor
         textField.layer.borderWidth = 1.0
         textField.bind(with: viewModel.email, storeIn: &cancellables)
+        textField.accessibilityHint = "Enter your email"
         return textField
     }()
     
     lazy fileprivate var emailAddressLabel: UILabel = {
        let emailLabel = UILabel()
         emailLabel.text = "Email address"
+        emailLabel.accessibilityLabel = "Email address"
         emailLabel.textColor = UIColor.black
         return emailLabel
     }()
@@ -35,6 +37,7 @@ class LoginViewController: UIViewController {
     lazy fileprivate var passwordLabel: UILabel = {
        let passwordLabel = UILabel()
         passwordLabel.text = "Password"
+        passwordLabel.accessibilityLabel = "Enter your password"
         passwordLabel.textColor = UIColor.black
         return passwordLabel
     }()
@@ -45,6 +48,7 @@ class LoginViewController: UIViewController {
         textField.isSecureTextEntry = true
         textField.layer.borderColor = UIColor.accentColor.cgColor
         textField.layer.borderWidth = 1.0
+        textField.accessibilityHint = "Enter your password"
         textField.bind(with: viewModel.password, storeIn: &cancellables)
         return textField
     }()
@@ -62,6 +66,7 @@ class LoginViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Login", for: .normal)
         button.backgroundColor = UIColor(named: "AccentColor")
+        button.accessibilityHint = "This button logs-in to the app"
         button.publishTap().sink { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.loadingView.isHidden = false

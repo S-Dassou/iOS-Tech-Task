@@ -19,6 +19,7 @@ class UserAccountDetailViewController: UIViewController {
         label.text = viewModel.productResponse.product?.friendlyName
         label.font = UIFont.style(.category)
         label.textColor = UIColor.greyColor
+        label.accessibilityLabel = "This account is the \(viewModel.productResponse.product?.friendlyName ?? "No account name found")"
         return label
     }()
     
@@ -33,6 +34,7 @@ class UserAccountDetailViewController: UIViewController {
         let formattedTotalValue = formatter.string(from: (viewModel.productResponse.planValue ?? 0.0) as NSNumber)
         
         label.text = "Plan Value: £\(formattedTotalValue ?? "0.00")"
+        label.accessibilityLabel = "Plan Value: £\(formattedTotalValue ?? "0.00")"
         return label
     }()
     
@@ -50,6 +52,7 @@ class UserAccountDetailViewController: UIViewController {
         let formattedMoneyBoxLabel = formatter.string(from: (viewModel.productResponse.moneybox ?? 0.0) as NSNumber)
         
         label.text = "MoneyBox: £\(formattedMoneyBoxLabel ?? "0.0")"
+        label.accessibilityLabel = "Your money box amount is \(formattedMoneyBoxLabel ?? "0.0")"
         return label
     }()
     
@@ -58,6 +61,7 @@ class UserAccountDetailViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Add Money", for: .normal)
         button.backgroundColor = UIColor(named: "AccentColor")
+        button.accessibilityHint = "This button will add 10 GBP to your money box"
         button.publishTap().sink { [weak self] in
             guard let strongSelf = self else { return }
             guard let productid = strongSelf.viewModel.productResponse.id else {

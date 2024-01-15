@@ -17,9 +17,9 @@ class UserAccountsViewController: UIViewController {
     lazy fileprivate var greetingMessageLabel: UILabel = {
        let greetingMessage = UILabel()
         greetingMessage.translatesAutoresizingMaskIntoConstraints = false
-        greetingMessage.text = "User Accounts"
         greetingMessage.font = UIFont.style(.body)
         greetingMessage.textColor = UIColor.greyColor
+        greetingMessage.accessibilityLabel = "Hello \(viewModel.user.firstName ?? "sir/madam") \(viewModel.user.lastName ?? "")"
         greetingMessage.text = "Hello \(viewModel.user.firstName ?? "sir/madam") \(viewModel.user.lastName ?? "")"
         return greetingMessage
     }()
@@ -34,6 +34,7 @@ class UserAccountsViewController: UIViewController {
         viewModel.totalPlanValue
                 .assign(to: \.text, on: totalPlanValue)
                 .store(in: &cancellables)
+        totalPlanValue.accessibilityLabel = "Your total plan value is \(viewModel.totalPlanValue)"
         totalPlanValue.textColor = UIColor.black
         return totalPlanValue
     }()
