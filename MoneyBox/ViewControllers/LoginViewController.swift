@@ -66,9 +66,9 @@ class LoginViewController: UIViewController {
             guard let strongSelf = self else { return }
             strongSelf.viewModel.login { result in
                 switch result {
-                case .success(let user):
+                case .success(let loginResponse):
                     DispatchQueue.main.async {
-                        strongSelf.viewModel.appCoordinator.proceed(to: .userAccounts, data: user)
+                        strongSelf.viewModel.appCoordinator.proceed(to: .userAccounts, data: loginResponse)
                     }
                 case .failure(let error):
                     DispatchQueue.main.async {

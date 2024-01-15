@@ -20,9 +20,7 @@ class UserAccountsViewController: UIViewController {
         greetingMessage.text = "User Accounts"
         greetingMessage.font = UIFont.style(.body)
         greetingMessage.textColor = UIColor.greyColor
-        if let user = viewModel.user {
-            greetingMessage.text = "Hello \(user.firstName ?? "sir/madam") \(user.lastName ?? "")"
-        }
+        greetingMessage.text = "Hello \(viewModel.user.firstName ?? "sir/madam") \(viewModel.user.lastName ?? "")"
         return greetingMessage
     }()
     
@@ -100,10 +98,17 @@ class UserAccountsViewController: UIViewController {
     
     private func getProducts() {
         tableView.isHidden = true
-        viewModel.getProducts {
-            DispatchQueue.main.async {
-                self.tableView.isHidden = false
-                self.tableView.reloadData()
+        viewModel.getProducts { result in
+            switch result {
+            case .success(_):
+                DispatchQueue.main.async {
+                    self.tableView.isHidden = false
+                    self.tableView.reloadData()
+                }
+            case .failure(_):
+                DispatchQueue.main.async {
+                    self.presentError(title: "Error", message: "Could not get accounts right now")
+                }
             }
         }
     }

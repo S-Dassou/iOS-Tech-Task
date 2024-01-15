@@ -14,33 +14,38 @@ import Combine
 class UserAccountsViewModel {
     
     let totalPlanValue = CurrentValueSubject<String?, Never>("Total Plan Value: £...")
-    var accounts: [ProductResponse] = []
-    var user: LoginResponse.User?
+    private var accountResponse: AccountResponse?
+    private let loginResponse: LoginResponse
+    private let service: UserAccountsService
+    var accounts: [ProductResponse] {
+        return accountResponse?.productResponses ?? []
+    }
+    var user: LoginResponse.User {
+        return loginResponse.user
+    }
+    var session: LoginResponse.Session {
+        return loginResponse.session
+    }
+    
     var appCoordinator: AppCoordinator?
     
-    init(loginResponse: LoginResponse.User) {
-        self.user = loginResponse
+    init(loginResponse: LoginResponse, service: UserAccountsService) {
+        self.loginResponse = loginResponse
+        self.service = service
     }
     
-   // typealias GetProductsCompletion = (Result<ProductResponse, Error>) -> Void
-    
-    /**
-     Method that retrieves a list of products to be displayed in the table view on UserAccountsViewController. It uses an instance of DataProvider and the fetchProducts method within DataProvider to update accounts with the fetched products.
-     */
-    func getProducts(completion: @escaping () -> Void) {
-        let dataProvider = DataProvider()
-        dataProvider.fetchProducts { [weak self] result in
+    func getProducts(completion: @escaping (_ result: Result<AccountResponse, Error>) -> Void) {
+        service.getProducts { [weak self] result in
             guard let strongSelf = self else { return }
             switch result {
-            case .success(let success):
-                strongSelf.accounts = success.productResponses ?? []
-                strongSelf.totalPlanValue.value = "Total Plan Value: £\(success.totalPlanValue ?? 0.0)"
-                completion()
+            case .success(let accountResponse):
+                strongSelf.accountResponse = accountResponse
+                strongSelf.totalPlanValue.value = "Total Plan Value: £\(accountResponse.totalPlanValue ?? 0.0)"
             case .failure(let failure):
                 print(failure.localizedDescription)
-                break
             }
+            completion(result)
         }
     }
+    
 }
-

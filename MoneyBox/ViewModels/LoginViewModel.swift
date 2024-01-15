@@ -17,7 +17,7 @@ class LoginViewModel {
     let password = CurrentValueSubject<String, Never>("")
     var appCoordinator: AppCoordinator
     
-    typealias LoginCompletion = (Result<LoginResponse.User, LoginError>) -> Void
+    typealias LoginCompletion = (Result<LoginResponse, LoginError>) -> Void
     
     init(appCoordinator: AppCoordinator) {
         self.appCoordinator = appCoordinator
@@ -38,12 +38,11 @@ class LoginViewModel {
         let logInRequest = LoginRequest(email: email.value, password: password.value)
         
         let dataProvider = DataProvider()
-        dataProvider.login(request: logInRequest) { [weak self] result in
-            guard let strongSelf = self else { return }
+        dataProvider.login(request: logInRequest) { result in
             switch result {
             case .success(let loginResponse):
                 Authentication.token = loginResponse.session.bearerToken
-                completion(.success(loginResponse.user))
+                completion(.success(loginResponse))
                 return
                 
             case .failure(let failure):

@@ -35,6 +35,10 @@
 		F65EEB542B53E0FE009C4AC9 /* EmptyStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EEB532B53E0FE009C4AC9 /* EmptyStateManager.swift */; };
 		F65EEB592B544D92009C4AC9 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EEB582B544D92009C4AC9 /* Coordinator.swift */; };
 		F65EEB5B2B5455EC009C4AC9 /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EEB5A2B5455EC009C4AC9 /* EmptyViewController.swift */; };
+		F65EEB5E2B55C71A009C4AC9 /* UserAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EEB5D2B55C71A009C4AC9 /* UserAccountsService.swift */; };
+		F65EEB612B55C741009C4AC9 /* UserAccountsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EEB602B55C741009C4AC9 /* UserAccountsServiceProtocol.swift */; };
+		F65EEB642B55C8B4009C4AC9 /* Extension+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EEB632B55C8B4009C4AC9 /* Extension+Result.swift */; };
+		F65EEB662B55C8FE009C4AC9 /* UserAccountsViewModelTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65EEB652B55C8FE009C4AC9 /* UserAccountsViewModelTestCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +88,10 @@
 		F65EEB532B53E0FE009C4AC9 /* EmptyStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateManager.swift; sourceTree = "<group>"; };
 		F65EEB582B544D92009C4AC9 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		F65EEB5A2B5455EC009C4AC9 /* EmptyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyViewController.swift; sourceTree = "<group>"; };
+		F65EEB5D2B55C71A009C4AC9 /* UserAccountsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountsService.swift; sourceTree = "<group>"; };
+		F65EEB602B55C741009C4AC9 /* UserAccountsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountsServiceProtocol.swift; sourceTree = "<group>"; };
+		F65EEB632B55C8B4009C4AC9 /* Extension+Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Result.swift"; sourceTree = "<group>"; };
+		F65EEB652B55C8FE009C4AC9 /* UserAccountsViewModelTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountsViewModelTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +136,8 @@
 		B2CA46CA279350880041B3A5 /* MoneyBox */ = {
 			isa = PBXGroup;
 			children = (
+				F65EEB5F2B55C72E009C4AC9 /* Protocols */,
+				F65EEB5C2B55C6E1009C4AC9 /* Services */,
 				F65EEB572B544D6D009C4AC9 /* Coordinator */,
 				F65EEB4C2B53569A009C4AC9 /* Views */,
 				F65EEB432B5351B7009C4AC9 /* Models */,
@@ -149,8 +159,10 @@
 		B2CA46E12793508A0041B3A5 /* MoneyBoxTests */ = {
 			isa = PBXGroup;
 			children = (
+				F65EEB622B55C8A0009C4AC9 /* Extensions */,
 				B2CA47662794D69A0041B3A5 /* StubData.swift */,
 				B2CA47682794D6AC0041B3A5 /* ResponseJsons */,
+				F65EEB652B55C8FE009C4AC9 /* UserAccountsViewModelTestCase.swift */,
 			);
 			path = MoneyBoxTests;
 			sourceTree = "<group>";
@@ -268,6 +280,30 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
+		F65EEB5C2B55C6E1009C4AC9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F65EEB5D2B55C71A009C4AC9 /* UserAccountsService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F65EEB5F2B55C72E009C4AC9 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				F65EEB602B55C741009C4AC9 /* UserAccountsServiceProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		F65EEB622B55C8A0009C4AC9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F65EEB632B55C8B4009C4AC9 /* Extension+Result.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -382,7 +418,9 @@
 				F65EEB4E2B5356C4009C4AC9 /* UserAccountTableViewCell.swift in Sources */,
 				F65EEB5B2B5455EC009C4AC9 /* EmptyViewController.swift in Sources */,
 				F65EEB502B53590C009C4AC9 /* UserAccountDetailViewController.swift in Sources */,
+				F65EEB612B55C741009C4AC9 /* UserAccountsServiceProtocol.swift in Sources */,
 				F65EEB3E2B535039009C4AC9 /* Extension+UIFont.swift in Sources */,
+				F65EEB5E2B55C71A009C4AC9 /* UserAccountsService.swift in Sources */,
 				F65EEB302B534DE4009C4AC9 /* LoginViewController.swift in Sources */,
 				F65EEB452B5351C3009C4AC9 /* LoginError.swift in Sources */,
 				F65EEB592B544D92009C4AC9 /* Coordinator.swift in Sources */,
@@ -405,6 +443,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F65EEB662B55C8FE009C4AC9 /* UserAccountsViewModelTestCase.swift in Sources */,
+				F65EEB642B55C8B4009C4AC9 /* Extension+Result.swift in Sources */,
 				B2CA47672794D69A0041B3A5 /* StubData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

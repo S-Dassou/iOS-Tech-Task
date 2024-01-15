@@ -41,8 +41,8 @@ class AppCoordinator {
         - Parameters:
             - loginResponse: Derived from the networking module. Encapsulates logged in user.
      */
-    private func goToUserAccounts(loginResponse: LoginResponse.User) {
-        let userAccountsViewModel = UserAccountsViewModel(loginResponse: loginResponse)
+    private func goToUserAccounts(loginResponse: LoginResponse) {
+        let userAccountsViewModel = UserAccountsViewModel(loginResponse: loginResponse, service: UserAccounts())
         userAccountsViewModel.appCoordinator = self
         let userAccountsViewController = UserAccountsViewController(viewModel: userAccountsViewModel)
         let userAccountsNavigationController = UINavigationController(rootViewController: userAccountsViewController)
@@ -81,7 +81,7 @@ class AppCoordinator {
         case .login:
             goToLogin()
         case .userAccounts:
-            if let loginResponseUser = data as? LoginResponse.User {
+            if let loginResponseUser = data as? LoginResponse {
                 goToUserAccounts(loginResponse: loginResponseUser)
             }
         case .userAccountDetail:
