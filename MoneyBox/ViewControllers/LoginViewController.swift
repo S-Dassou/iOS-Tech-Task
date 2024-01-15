@@ -64,7 +64,11 @@ class LoginViewController: UIViewController {
         button.backgroundColor = UIColor(named: "AccentColor")
         button.publishTap().sink { [weak self] in
             guard let strongSelf = self else { return }
+            strongSelf.loadingView.isHidden = false
             strongSelf.viewModel.login { result in
+                DispatchQueue.main.async {
+                    strongSelf.loadingView.isHidden = true
+                }
                 switch result {
                 case .success(let loginResponse):
                     DispatchQueue.main.async {
@@ -80,6 +84,23 @@ class LoginViewController: UIViewController {
         .store(in: &cancellables)
         return button
     }()
+    
+    lazy fileprivate var loadingView: UIView = {
+       let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        view.isHidden = true
+        return view
+    }()
+    
+    lazy fileprivate var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.color = UIColor.white
+        activityIndicator.startAnimating()
+        return activityIndicator
+    }()
+    
     
     init(viewModel: LoginViewModel) {
         self.viewModel = viewModel
@@ -104,11 +125,21 @@ class LoginViewController: UIViewController {
 extension LoginViewController {
     
     fileprivate func layout() {
-        [logInButton, moneyBoxLogoImageView, emailAddressTextField, passwordTextField].forEach { uiView in
+        [logInButton, moneyBoxLogoImageView, emailAddressTextField, passwordTextField, loadingView].forEach { uiView in
             view.addSubview(uiView)
         }
 
+        loadingView.addSubview(activityIndicator)
+        
         NSLayoutConstraint.activate([
+            loadingView.topAnchor.constraint(equalTo: view.topAnchor),
+            loadingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            loadingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            activityIndicator.centerXAnchor.constraint(equalTo: loadingView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: loadingView.centerYAnchor),
+            
             moneyBoxLogoImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             moneyBoxLogoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             moneyBoxLogoImageView.heightAnchor.constraint(equalToConstant: 50),
